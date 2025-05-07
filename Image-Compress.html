@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Primary Meta Tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Responsive Image Compressor Tool</title>
+  <meta name="description" content="Optimize and compress your images quickly and easily with our responsive image compression tool. Choose the compression level and download optimized images.">
+  <meta name="keywords" content="image compressor, image optimization, responsive tool, web performance, SEO">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Google AdSense Script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR_ADSENSE_CLIENT_ID" crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --primary: #1e88e5;
+      --primary-dark: #1565c0;
+      --bg: #f9fafb;
+      --text: #2d3748;
+      --card-bg: #fff;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: var(--primary); text-decoration: none; }
+    header, footer { background: var(--card-bg); box-shadow: 0 1px 4px var(--shadow); padding: 1.5rem; text-align: center; }
+    header h1 { font-size: 2rem; font-weight: 700; }
+    header p { margin-top: 0.5rem; color: #4a5568; }
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+    .card {
+      background: var(--card-bg);
+      box-shadow: 0 2px 8px var(--shadow);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+    }
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .control-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .control-group label {
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    .control-group input[type="file"] {
+      padding: 0.5rem;
+      border: 1px solid #cbd5e0;
+      border-radius: 0.25rem;
+      background: #edf2f7;
+    }
+    .quality-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    #qualityRange {
+      flex: 1;
+    }
+    button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.375rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover { background: var(--primary-dark); }
+
+    .output {
+      margin-top: 2rem;
+      text-align: center;
+    }
+    .output img {
+      max-width: 100%;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.375rem;
+      box-shadow: 0 2px 4px var(--shadow);
+    }
+    #downloadLink {
+      display: inline-block;
+      margin-top: 1rem;
+      background: var(--primary);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    #downloadLink:hover { background: var(--primary-dark); }
+
+    .ad-slot { margin: 2rem 0; text-align: center; }
+    @media (min-width: 768px) {
+      .controls { flex-direction: row; align-items: flex-end; }
+      .control-group { flex: 1; }
+      .quality-wrapper { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Responsive Image Compressor</h1>
+    <p>Fast. Simple. Pixel‑perfect compression.</p>
+  </header>
+
+  <main>
+    <!-- Top Banner Ad -->
+    <div class="ad-slot">
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="YOUR_ADSENSE_CLIENT_ID"
+        data-ad-slot="YOUR_AD_UNIT_ID"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <div class="card">
+      <div class="controls">
+        <div class="control-group">
+          <label for="fileInput">Select Image</label>
+          <input type="file" id="fileInput" accept="image/*">
+        </div>
+
+        <div class="control-group quality-wrapper">
+          <label for="qualityRange">Compression Quality: <span id="qualityValue">0.8</span></label>
+          <input type="range" id="qualityRange" min="0.1" max="1" step="0.05" value="0.8">
+        </div>
+
+        <button id="compressBtn">Compress Image</button>
+      </div>
+
+      <div class="output">
+        <canvas id="canvas" style="display:none;"></canvas>
+        <img id="preview" alt="Compressed preview will appear here">
+        <a id="downloadLink" download="compressed.jpg" style="display:none;">Download Compressed Image</a>
+      </div>
+    </div>
+
+    <!-- Sidebar Ad (Desktop) -->
+    <div class="ad-slot sidebar">
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="YOUR_ADSENSE_CLIENT_ID"
+        data-ad-slot="YOUR_AD_UNIT_ID"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Your Company. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const fileInput    = document.getElementById('fileInput');
+      const qualityRange = document.getElementById('qualityRange');
+      const qualityValue = document.getElementById('qualityValue');
+      const compressBtn  = document.getElementById('compressBtn');
+      const canvas       = document.getElementById('canvas');
+      const preview      = document.getElementById('preview');
+      const downloadLink = document.getElementById('downloadLink');
+
+      qualityRange.addEventListener('input', () => {
+        qualityValue.textContent = qualityRange.value;
+      });
+
+      compressBtn.addEventListener('click', () => {
+        const file = fileInput.files[0];
+        if (!file) {
+          alert('Please select an image file.');
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = e => {
+          const img = new Image();
+          img.onload = () => {
+            canvas.width  = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+
+            canvas.toBlob(blob => {
+              const url = URL.createObjectURL(blob);
+              preview.src = url;
+              downloadLink.href = url;
+              downloadLink.style.display = 'inline-block';
+            }, 'image/jpeg', parseFloat(qualityRange.value));
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+  </script>
+</body>
+</html>
